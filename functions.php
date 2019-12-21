@@ -45,7 +45,7 @@ function add_icp_num($wp_customize)  {
 	$beian_gongan = get_option( SETTING_ID_BEIAN_GONGAN );
 	echo 'Copyright &copy; ' . date('Y') . ' ' . get_bloginfo();
 	echo ' - Powered by <a href="http://www.zongbutech.com">宗布科技</a><br>';
-    echo '<a href="http://www.miitbeian.gov.cn/" rel="external nofollow" target="_blank">' . $beian_icp . '</a>';
+    echo '<a href="http://www.beian.miit.gov.cn" rel="external nofollow" target="_blank">' . $beian_icp . '</a>';
     echo ' <img src="http://www.beian.gov.cn/img/ghs.png"> ';
     echo '<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=' . $beian_gongan . '">' . $beian_gongan . '</a>';
 }
