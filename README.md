@@ -1,4 +1,4 @@
-# OnePress 子主题 － 宗布科技
+# OnePress 子主题
 
 ## 主要功能
 
@@ -11,7 +11,6 @@
 
 - [WordPress Theme Customizer学习笔记 – 创建新选项][1]
 - [Theme Customization API][2]
-
 
 <!-- links -->
 
