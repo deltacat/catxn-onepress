@@ -2,6 +2,7 @@
 
 define('SETTING_ID_BEIAN_ICP', 'zh_cn_l10n_icp_num');
 define('SETTING_ID_BEIAN_GONGAN', 'zh_cn_l10n_gongan_num');
+define('SETTING_ID_BEIAN_GONGAN_PREFIX', 'zh_cn_l10n_gongan_prefix');
 
 // 增加主题选项
 add_action( 'customize_register', 'catxn_customize_register' );
@@ -23,8 +24,22 @@ function catxn_customize_register( $wp_customize ) {
     ) ) );
 
     // 公安备案信息
+    $wp_customize->add_setting( SETTING_ID_BEIAN_GONGAN_PREFIX, array(
+        'default'        => '浙公网安备',
+        'type'           => 'option',
+        'capability'     => 'edit_theme_options',
+        'transport'      => 'refresh'
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Control( 
+    	$wp_customize, SETTING_ID_BEIAN_GONGAN_PREFIX, array(
+        'label'      => __( '公安备案区域前缀', 'catxn-onepress' ),
+        'section'    => 'title_tagline',
+        'settings'   => SETTING_ID_BEIAN_GONGAN_PREFIX,
+    ) ) );
+
     $wp_customize->add_setting( SETTING_ID_BEIAN_GONGAN, array(
-        'default'        => '浙公网安备00000000000000号',
+        'default'        => '00000000000000',
         'type'           => 'option',
         'capability'     => 'edit_theme_options',
         'transport'      => 'refresh'
@@ -43,11 +58,15 @@ function catxn_customize_register( $wp_customize ) {
 function add_icp_num($wp_customize)  {  
 	$beian_icp = get_option( SETTING_ID_BEIAN_ICP );
 	$beian_gongan = get_option( SETTING_ID_BEIAN_GONGAN );
+    $beian_gongan_prefix = get_option( SETTING_ID_BEIAN_GONGAN_PREFIX );
+    $beian_gongan_icon = get_stylesheet_directory_uri() . '/' . 'gongan.png';
 	echo 'Copyright &copy; ' . date('Y') . ' ' . get_bloginfo();
     echo ' <a href="https://beian.miit.gov.cn/" rel="external nofollow" target="_blank">' . $beian_icp . '</a>';
-    echo ' <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=' . $beian_gongan . '">' . $beian_gongan . '</a>';
+    echo ' <img src="' . $beian_gongan_icon . '" />';
+    echo ' <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=' . $beian_gongan . '">' . $beian_gongan_prefix . $beian_gongan . '号</a>';
 }
 add_action('onepress_footer_site_info', 'add_icp_num', 20); 
+
 function remove_origin_siteinfo() {
 	remove_action( 'onepress_footer_site_info', 'onepress_footer_site_info' );
 }
